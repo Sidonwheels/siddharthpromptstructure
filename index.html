@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Engineering Basics: A Beginner's Guide</title>
+<meta name="description" content="A 15-slide beginner guide to prompt engineering by Siddharth Bhalla">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f8f1e8;--red:#bf1238;--bg:#e7e0d8}
+*{box-sizing:border-box}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);padding:2vw 0;font-family:Poppins,'Segoe UI',Arial,sans-serif;color:var(--red)}
+.page{container-type:inline-size;position:relative;width:min(96vw,170vh);aspect-ratio:16/9;margin:0 auto 2vw;overflow:hidden;scroll-snap-align:center;background:var(--cream);box-shadow:0 .4cqw 1.6cqw rgba(0,0,0,.14);padding:3.6cqw 5cqw;font-size:2cqw;line-height:3cqw;font-weight:400}
+.top{display:flex;justify-content:space-between;font-size:1.5cqw;line-height:2cqw;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3.4cqw}
+.g{display:grid;grid-template-columns:38fr 47fr;gap:5cqw;align-items:start}
+.flip .g{grid-template-columns:47fr 38fr}.flip .L{order:2}
+h1,h2{margin:0;font-weight:800;letter-spacing:-.035em}
+h2{font-size:5.4cqw;line-height:5.2cqw;margin-bottom:2cqw}
+p{margin:0 0 1.4cqw}
+.b{border:.14cqw solid var(--red);border-radius:1.6cqw;padding:1.1cqw 2cqw;margin-bottom:1.3cqw;font-size:1.9cqw;line-height:2.7cqw}
+.b.f,.ex{background:var(--red);color:var(--cream)}
+.ex{border-radius:1.6cqw;padding:1.2cqw 2cqw;font-size:1.9cqw;line-height:2.7cqw;font-style:italic;margin-bottom:1.4cqw}
+.b b{font-weight:500}.q{font-style:italic}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 1.3cqw}
+.pr{font-size:1.9cqw;line-height:2.7cqw;border-top:.14cqw solid var(--red);padding-top:1.1cqw}
+.pr b{font-weight:800}
+.flow{display:flex;align-items:center;gap:.6cqw;flex-wrap:wrap;margin:0 0 1.6cqw}
+.flow span{border:.14cqw solid var(--red);border-radius:5cqw;padding:.2cqw 1cqw;font-size:1.6cqw}.flow span.f{background:var(--red);color:var(--cream)}
+.tl{display:inline-grid;place-items:center;width:4.4cqw;height:4.4cqw;border-radius:50%;border:.14cqw solid var(--red);font-weight:800;font-size:2.2cqw;margin-right:1.2cqw;vertical-align:middle}
+.cover .g{display:block;text-align:center}
+.cover h1{font-size:10cqw;line-height:9.4cqw;margin-top:1cqw}
+.cover .row{display:flex;justify-content:center;gap:1.6cqw;margin:2.6cqw 0 2cqw}
+.cover .tl{width:6.4cqw;height:6.4cqw;font-size:3.2cqw;margin:0}.cover .tl.f{background:var(--red);color:var(--cream)}
+.cover p{font-size:2.1cqw;line-height:3cqw;max-width:60cqw;margin:0 auto 1cqw}
+@media print{@page{size:1280px 720px;margin:0}html{scroll-snap-type:none}body{padding:0;background:#fff}.page{width:1280px;margin:0;box-shadow:none;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<section class="page cover">
+<div class="top"><span>Siddharth Bhalla</span><span>01 / 15</span></div>
+<div class="g"><div>
+<p style="margin-bottom:0;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:1.7cqw">A beginner's guide to</p>
+<h1>PROMPT<br>ENGINEERING</h1>
+<div class="row"><span class="tl f">T</span><span class="tl">C</span><span class="tl f">R</span><span class="tl">E</span><span class="tl f">I</span></div>
+<p>Get clear, useful answers from ChatGPT, Claude, and Gemini with a simple five-step framework.</p>
+<p style="font-size:1.6cqw;font-weight:300;max-width:none">Siddharth Bhalla | Corporate Trainer, Generative AI<br>Framework inspired by Google's Prompting Essentials</p>
+</div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>02 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Weak prompt</b><br><span class="q">"Write about dogs."</span><br>Which dogs? For whom? How long? The AI has to guess.</div>
+<div class="b f"><b>Strong prompt</b><br><span class="q">"Write a friendly 150-word Instagram caption for a rescue shelter, with 3 reasons to adopt."</span></div></div>
+<div class="R"><h2>What Is a Prompt?</h2>
+<p>A prompt is the instruction you give an AI. Think of the AI as a fast, well-read assistant that knows nothing about your situation until you tell it.</p>
+<p class="pr"><b>Practice:</b> run both prompts in any AI tool and compare the answers.</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>03 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b">It predicts the most likely next words from patterns it has learned.</div>
+<div class="b">It only sees what you type, plus the conversation so far.</div>
+<div class="b">It can sound confident and still be wrong.</div></div>
+<div class="R"><h2>How Does AI Read Your Prompt?</h2>
+<div class="flow"><span>You</span>&rarr;<span>Prompt</span>&rarr;<span>AI model</span>&rarr;<span>Output</span>&rarr;<span class="f">You review</span></div>
+<p>Clearer input leads to better output. The last step is the one most people skip: you are always the editor.</p></div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>04 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><span class="tl">T</span><b>Task:</b> what you want done</div>
+<div class="b"><span class="tl">C</span><b>Context:</b> audience, goal, limits</div>
+<div class="b"><span class="tl">R</span><b>References:</b> an example of good</div>
+<div class="b f"><span class="tl" style="border-color:var(--cream)">E</span><b>Evaluate:</b> check before you use</div>
+<div class="b f"><span class="tl" style="border-color:var(--cream)">I</span><b>Iterate:</b> refine, don't restart</div></div>
+<div class="R"><h2>The Five-Step Framework</h2>
+<p>Every strong prompt follows the same simple path: Task, Context, References, Evaluate, Iterate.</p>
+<p class="pr"><b>Memory trick:</b> Thoughtfully Create Really Excellent Inputs.</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>05 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Persona:</b> who the AI should act as</div>
+<div class="b"><b>Action:</b> a strong verb such as write, compare, plan</div>
+<div class="b"><b>Format:</b> table, list, or word count</div></div>
+<div class="R"><h2>T Is for Task</h2>
+<p>Say exactly what you want done. One clear job per prompt works best.</p>
+<div class="ex">"You are a career coach. Write a LinkedIn headline for a fresher in data analytics. Give 5 options in a numbered list, under 12 words each."</div>
+<p class="pr"><b>Practice:</b> turn "help with my resume" into a task with a persona and a format.</p></div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>06 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Audience:</b> college freshers, busy managers</div>
+<div class="b"><b>Goal:</b> why you need this</div>
+<div class="b"><b>Constraints:</b> length, deadline, budget</div>
+<div class="b"><b>Tone:</b> warm, formal, playful</div></div>
+<div class="R"><h2>C Is for Context</h2>
+<p>Context is everything the AI cannot guess.</p>
+<div class="ex">"Explain what an API is. Audience: first-year B.Com students with no tech background. Goal: a 2-minute workshop intro. Tone: friendly, with one everyday analogy."</div>
+<p class="pr"><b>Practice:</b> ask for the same explanation for a child, then for a CEO.</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>07 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b">Show one or two examples of what good looks like.</div>
+<div class="b">Examples can be text, a table, or a layout to copy.</div>
+<div class="b f">Never paste private or confidential material into a public AI tool.</div></div>
+<div class="R"><h2>R Is for References</h2>
+<p>Show, don't just tell. Examples teach style faster than rules. This is called few-shot prompting.</p>
+<div class="ex">"Here are two taglines I like: 1. 'Fuel your day, one sip at a time.' 2. 'Brewed slow. Enjoyed fast.' Write 3 new taglines for a mountain homestay in the same style."</div></div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>08 / 15</span></div>
+<div class="g"><div class="L two">
+<div class="b"><b>Accurate</b><br>Are facts verified?</div><div class="b"><b>Relevant</b><br>Does it answer my task?</div>
+<div class="b"><b>Complete</b><br>Is anything missing?</div><div class="b"><b>Tone</b><br>Does it sound like me?</div>
+<div class="b"><b>Safe</b><br>Nothing private or biased?</div><div class="b"><b>Useful</b><br>Can I use it as is?</div></div>
+<div class="R"><h2>E Is for Evaluate</h2>
+<p>AI can invent facts, numbers, and links. This is called a hallucination. Check every output against the six questions.</p>
+<p class="pr"><b>Practice:</b> ask an AI for 3 statistics about remote work, then verify each one with a trusted source.</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>09 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Too long?</b> <span class="q">"Cut this to 100 words."</span></div>
+<div class="b"><b>Too complex?</b> <span class="q">"Explain it like I'm 15."</span></div>
+<div class="b"><b>Too generic?</b> <span class="q">"Add a real example from retail."</span></div>
+<div class="b"><b>Need options?</b> <span class="q">"Give 3 more in a different tone."</span></div>
+<div class="b"><b>Not sure?</b> <span class="q">"What would make this stronger?"</span></div></div>
+<div class="R"><h2>I Is for Iterate</h2>
+<div class="flow"><span>Prompt</span>&rarr;<span>Output</span>&rarr;<span>Evaluate</span>&rarr;<span class="f">Refine</span></div>
+<p>Your first prompt is a draft. Keep the chat going and steer it, like giving feedback to a colleague.</p></div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>10 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Before</b><br><span class="q">"Make a workshop plan on AI."</span></div>
+<div class="b f" style="font-size:1.75cqw;line-height:2.5cqw"><b>After</b><br><span class="q"><b>Task:</b> You are a corporate trainer. Create a 60-minute workshop plan on prompt engineering.<br><b>Context:</b> 30 college freshers, no tech background; goal is to write a good prompt by the end.<br><b>Reference:</b> use the layout Time | Activity | Outcome.<br><b>Format:</b> a table, then 3 practice exercises.</span></div></div>
+<div class="R"><h2>Putting It All Together</h2>
+<p>Same request, five steps applied. The second prompt gives the AI a role, an audience, a layout, and an output format.</p>
+<p class="pr"><b>Then:</b> evaluate the plan, and iterate with "Add a 5-minute icebreaker."</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>11 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Role prompting</b><br>Sets expertise. <span class="q">"Act as a financial analyst..."</span></div>
+<div class="b"><b>Few-shot</b><br>Teaches style. <span class="q">"Here are 2 samples. Write a third."</span></div>
+<div class="b"><b>Step by step</b><br>Improves reasoning. <span class="q">"Solve this and show each step."</span></div>
+<div class="b"><b>Format control</b><br>Shapes structure. <span class="q">"Answer as a table."</span></div></div>
+<div class="R"><h2>Four Techniques Worth Knowing</h2>
+<p>These build on the framework. Mix and match them as your tasks get more advanced.</p>
+<p class="pr"><b>Practice:</b> combine two techniques in one prompt.</p></div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>12 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>ChatGPT</b><br>General-purpose assistant for drafting, brainstorming, and quick Q&amp;A.</div>
+<div class="b"><b>Claude</b><br>Strong with long documents, careful writing, and detailed instructions.</div>
+<div class="b"><b>Gemini</b><br>Works closely with Google apps such as Docs, Sheets, and Gmail.</div></div>
+<div class="R"><h2>One Framework, Any Tool</h2>
+<p>Tools update often, but the framework stays the same.</p>
+<p class="pr"><b>Practice:</b> send one prompt to all three. Compare accuracy, tone, and structure, then note which suited the task best.</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>13 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>Excel / Sheets</b><br><span class="q">"Write a formula to sum column C where column A is 'North'."</span></div>
+<div class="b"><b>Email</b><br><span class="q">"Rewrite this email to be polite but firm, under 80 words."</span></div>
+<div class="b"><b>Content</b><br><span class="q">"Give 10 reel ideas for a budget travel channel."</span></div>
+<div class="b"><b>Learning</b><br><span class="q">"Make a 7-day plan to learn pivot tables."</span></div></div>
+<div class="R"><h2>Everyday Uses</h2>
+<p>The same five steps work for spreadsheets, email, content, learning, and summaries. Start with a task you already do every week.</p>
+<p class="pr"><b>Also try:</b> "Summarise this report in 5 bullets and list 2 risks."</p></div></div></section>
+
+<section class="page">
+<div class="top"><span>Siddharth Bhalla</span><span>14 / 15</span></div>
+<div class="g"><div class="L two">
+<div class="b"><b>Too vague</b><br>Add audience, goal, and length.</div><div class="b"><b>Five tasks at once</b><br>One job at a time.</div>
+<div class="b"><b>No format asked</b><br>Say table, bullets, or word count.</div><div class="b"><b>Trusting blindly</b><br>Verify facts and links.</div>
+<div class="b"><b>Sharing private data</b><br>Remove names and secrets.</div><div class="b"><b>Giving up early</b><br>Iterate at least twice.</div></div>
+<div class="R"><h2>Common Mistakes and Fixes</h2>
+<p>Most weak results come from one of these six habits. Spot the habit, apply the fix, and the output improves quickly.</p></div></div></section>
+
+<section class="page flip">
+<div class="top"><span>Siddharth Bhalla</span><span>15 / 15</span></div>
+<div class="g"><div class="L">
+<div class="b"><b>1.</b> Pick one real task from your week.</div>
+<div class="b"><b>2.</b> Write a prompt using Task, Context, and References.</div>
+<div class="b"><b>3.</b> Run it, then evaluate with the checklist.</div>
+<div class="b"><b>4.</b> Iterate twice and save your best version.</div></div>
+<div class="R"><h2>Your Turn: 15-Minute Exercise</h2>
+<div class="ex" style="font-style:normal"><b>Cheat sheet</b><br>Task = verb + persona + format. Context = audience, goal, limits, tone. References = 1 to 2 examples. Evaluate = verify facts. Iterate = refine, don't restart.</div>
+<p class="pr"><b>Next up:</b> AI in Excel, content creation, and workflow automation.</p></div></div></section>
+
+<script>
+addEventListener('keydown',e=>{const p=[...document.querySelectorAll('.page')],y=innerHeight/2;let i=p.findIndex(x=>{const r=x.getBoundingClientRect();return r.top<=y&&r.bottom>y});
+if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();p[Math.min(i+1,p.length-1)].scrollIntoView({block:'center'})}
+if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();p[Math.max(i-1,0)].scrollIntoView({block:'center'})}});
+</script>
+</body>
+</html>
